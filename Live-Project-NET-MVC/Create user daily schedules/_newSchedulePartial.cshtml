@@ -1,0 +1,52 @@
+@model ScheduleUsers.Areas.Employer.ViewModels.ScheduleViewModel
+
+@using (Html.BeginForm("Create", "Schedule", FormMethod.Post, new { id = "scheduleform" }))
+{
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.Repeating)
+    @Html.HiddenFor(m => m.ScheduleId)
+    @Html.AntiForgeryToken()
+
+    <div>Schedule Start Date @Html.TextBoxFor(m => m.ScheduleStartDay, "{0:MM/d/yyyy}", new { Name = "ScheduleStartDay", @class = "form-control form-inline", id = "ScheduleStartDay" })</div>
+
+    <div>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</div>
+
+    <table id="shift-row-container" class="table">
+        <tr>
+            <th class="shift-row shift-row-header">Start Day</th>
+            <th class="shift-row shift-row-header">Shift Template</th>
+            <th class="shift-row shift-row-header">Day Off</th>
+            <th class="shift-row shift-row-header">Start Time</th>
+            <th class="shift-row shift-row-header">End Time</th>
+        </tr>
+        @{
+            int shiftcount = 0;
+            int dayofweek = 0;
+
+            foreach (var WorkPeriod in Model.WorkPeriods)
+            {
+                @Html.Partial("_scheduleShiftRow", WorkPeriod, new ViewDataDictionary(ViewData)
+                                     {
+                                        { "shiftcount", shiftcount },
+                                        { "dayofweek", dayofweek }
+                                     });
+
+                shiftcount++;
+                dayofweek++;
+                @* Loop through each day for each shift, if end of week, then reset week *@
+                if (dayofweek > 6) { dayofweek = 0; }
+            }
+        }
+    </table>
+}
+<div id="shift-add" style="text-align:right;margin-bottom:20px;">
+    <button type="button" class="btn btn-primary btn" onclick="saveScheduleShifts()" style="float:left;">Save This Schedule</button>
+    <!-- Add new shift row button -->
+    <button type="button" class="btn btn-primary btn" onclick="addShiftRow()">Add Day</button>
+    @if (Model.WorkPeriods.Count > 1)
+    {
+        <!-- If there is more than 1 shift rows, show delete last row button -->
+        <button id="delete-last-day" type="button" class="btn btn-primary btn" onclick="removeShiftRow()">Delete Last Day</button>
+    }
+</div>
+
