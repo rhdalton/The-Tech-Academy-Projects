@@ -1,0 +1,168 @@
+@model ScheduleUsers.Areas.Employer.ViewModels.EditUserVm
+
+<!-- Show any ViewBag message passed to view -->
+@if (ViewBag.EditMsg)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.EditMsg
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { id = "edituserform" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input id="userId" name="Id" type="hidden" value="@Model.Id" />
+    <table id="detailsTableLeft" class="table index-table">
+        <tr>
+            <!-- First name -->
+            <td class="index-title">@Html.LabelFor(model => model.FirstName)</td>
+            <td>
+                @Html.EditorFor(model => Model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </td>
+
+            <!-- Birth date -->
+            <td class="index-title">@Html.LabelFor(model => model.BirthDate)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.BirthDate)
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- Middle name -->
+            <td class="index-title">@Html.LabelFor(model => model.MiddleName)</td>
+            <td>
+                @Html.EditorFor(model => Model.MiddleName)
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+            </td>
+
+            <!-- Work email -->
+            <td class="index-title">@Html.LabelFor(model => model.WorkEmail)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.WorkEmail)
+                @Html.ValidationMessageFor(model => model.WorkEmail, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- Last name -->
+            <td class="index-title">@Html.LabelFor(model => model.LastName)</td>
+            <td>
+                @Html.EditorFor(model => Model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </td>
+
+            <!-- Alternate email -->
+            <td class="index-title">@Html.LabelFor(model => model.AlternateEmail)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.AlternateEmail)
+                @Html.ValidationMessageFor(model => model.AlternateEmail, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- Department -->
+            <td class="index-title">@Html.LabelFor(model => model.Department)</td>
+            <td>
+                @Html.EditorFor(model => Model.Department)
+                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+            </td>
+
+            <!-- Work Phone -->
+            <td class="index-title">@Html.LabelFor(model => model.WorkPhone)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.WorkPhone)
+                @Html.ValidationMessageFor(model => model.WorkPhone, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- Position -->
+            <td class="index-title">@Html.LabelFor(model => model.Position)</td>
+            <td>
+                @Html.EditorFor(model => Model.Position)
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+            </td>
+
+            <!-- Home phone -->
+            <td class="index-title">@Html.LabelFor(model => model.HomePhone)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.HomePhone)
+                @Html.ValidationMessageFor(model => model.HomePhone, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- Fulltime -->
+            <td class="index-title">@Html.LabelFor(model => model.Fulltime)</td>
+            <td>
+                @{
+                    if (Model.Fulltime)
+                    {
+                        <input type="checkbox" name="Fulltime" value="true" checked />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Fulltime" value="true" />
+                    }
+                }
+            </td>
+            <!-- Mobile Phone -->
+            <td class="index-title">@Html.LabelFor(model => model.MobilePhone)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.MobilePhone)
+                @Html.ValidationMessageFor(model => model.MobilePhone, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- Hire date -->
+            <td class="index-title">@Html.LabelFor(model => model.HireDate)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.HireDate)
+                @Html.ValidationMessageFor(model => model.HireDate, "", new { @class = "text-danger" })
+            </td>
+
+            <!-- Address -->
+            <td class="index-title">@Html.LabelFor(model => model.Address)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.Address)
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <!-- End Date -->
+            <td class="index-title">@Html.LabelFor(model => model.EndDate)</td>
+            @{ if (Model.EndDate == null)
+                {
+                    <td>N/A</td>
+                }
+                else
+                {
+                    <td>
+                        @Html.EditorFor(modelItem => Model.EndDate)
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </td>
+                }
+            }
+
+            <!-- Hourly Pay -->
+            <td class="index-title">@Html.LabelFor(model => model.HourlyPayRate)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.HourlyPayRate)
+                @Html.ValidationMessageFor(model => model.HourlyPayRate, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td class="index-title">@Html.LabelFor(model => model.LoginName)</td>
+            <td>
+                @Html.EditorFor(modelItem => Model.LoginName)
+                @Html.ValidationMessageFor(model => model.LoginName, "", new { @class = "text-danger" })
+            </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+    </table>
+
+    <div class="clearfix"></div>
+    <input type="button" value="Save Changes" onclick="EditUser()" class="btn btn-primary" />
+    <input type="button" value="Cancel" onclick="loadDetails('@Model.Id','@Model.FirstName','@Model.LastName')" class="btn btn-danger" />
+}
